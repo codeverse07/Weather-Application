@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidya Sarthi - Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #4c6ef5, #3b5bdb);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #ff922b;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #ff7700;
+            transform: translateY(-2px);
+        }
+        
+        /* Lesson Content */
+        .lesson-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .video-section {
+            flex: 7;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-info h2 {
+            color: #343a40;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4c6ef5, #3b5bdb);
+            width: 65%;
+        }
+        
+        /* Custom Video Player */
+        .custom-video-player {
+            position: relative;
+            width: 100%;
+            background: #000;
+            cursor: pointer;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            display: block;
+            opacity: 0.9;
+        }
+        
+        .play-button-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(76, 110, 245, 0.8);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 40px rgba(76, 110, 245, 1);
+        }
+        
+        .play-button i {
+            color: #4c6ef5;
+            font-size: 2.5rem;
+            margin-left: 5px;
+        }
+        
+        .youtube-player {
+            display: none;
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chapter-list {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+        }
+        
+        .chapter-list h3 {
+            color: #343a40;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+        
+        .chapter-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .chapter-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .chapter-item.active {
+            background-color: #edf2ff;
+            border-left: 4px solid #4c6ef5;
+            font-weight: 600;
+        }
+        
+        /* Quiz Section */
+        .quiz-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .quiz-section h3 {
+            color: #343a40;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+        
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+        }
+        
+        .option.selected {
+            background: #edf2ff;
+            border: 2px solid #4c6ef5;
+        }
+        
+        .submit-btn {
+            background: #40c057;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #2f9e44;
+            transform: translateY(-2px);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(76, 110, 245, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(76, 110, 245, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 110, 245, 0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .lesson-container {
+                flex-direction: column;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .youtube-player {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap" style="font-size: 2rem;"></i>
+                <h1>Vidya Sarthi</h1>
+            </div>
+            <div class="user-actions">
+                <span>Welcome, Student!</span>
+                <button class="btn btn-primary">Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="lesson-container">
+            <!-- Video Section -->
+            <div class="video-section">
+                <!-- Custom Video Player -->
+                <div class="custom-video-player" id="customPlayer">
+                    <img src="https://img.youtube.com/vi/J---aiyznGQ/maxresdefault.jpg" alt="Lesson Thumbnail" class="video-thumbnail">
+                    <div class="play-button-container">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <iframe class="youtube-player" id="youtubePlayer" src="about:blank" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                
+                <!-- Video Info -->
+                <div class="video-info">
+                    <h2>Introduction to Algebraic Expressions</h2>
+                    <p>In this lesson, you will learn the basics of algebraic expressions, variables, and how to solve simple equations.</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <p>65% of students completed this lesson</p>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="chapter-list">
+                    <h3>Chapter Contents</h3>
+                    <div class="chapter-item active">1. Introduction to Algebra</div>
+                    <div class="chapter-item">2. Variables and Constants</div>
+                    <div class="chapter-item">3. Algebraic Expressions</div>
+                    <div class="chapter-item">4. Solving Basic Equations</div>
+                    <div class="chapter-item">5. Practice Problems</div>
+                    <div class="chapter-item">6. Chapter Test</div>
+                </div>
+                
+                <div class="chapter-list">
+                    <h3>Your Progress</h3>
+                    <p><strong>Current Streak:</strong> 5 days 🔥</p>
+                    <p><strong>Completed Lessons:</strong> 12</p>
+                    <p><strong>Total Points:</strong> 450</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quiz Section -->
+        <div class="quiz-section">
+            <h3>Check Your Understanding</h3>
+            <div class="quiz-question">
+                <p>1. What is the value of x in the equation: 2x + 5 = 13?</p>
+                <div class="options">
+                    <div class="option">x = 4</div>
+                    <div class="option selected">x = 4.5</div>
+                    <div class="option">x = 5</div>
+                    <div class="option">x = 9</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <p>2. Which of these is an algebraic expression?</p>
+                <div class="options">
+                    <div class="option">10 + 5</div>
+                    <div class="option">2x - 7</div>
+                    <div class="option">15 ÷ 3</div>
+                    <div class="option">7 × 2</div>
+                </div>
+            </div>
+            
+            <button class="submit-btn">Submit Answers</button>
+        </div>
+    </div>
+
+    <script>
+        // Custom YouTube Player Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const customPlayer = document.getElementById('customPlayer');
+            const youtubePlayer = document.getElementById('youtubePlayer');
+            const playButton = document.querySelector('.play-button');
+            
+            // When user clicks the custom player
+            customPlayer.addEventListener('click', function() {
+                // Hide thumbnail and play button
+                document.querySelector('.video-thumbnail').style.display = 'none';
+                document.querySelector('.play-button-container').style.display = 'none';
+                
+                // Show and play the YouTube video
+                youtubePlayer.style.display = 'block';
+                youtubePlayer.src = 'https://www.youtube.com/embed/J---aiyznGQ?autoplay=1&rel=0&modestbranding=1';
+            });
+            
+            // Option selection in quiz
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from siblings
+                    const siblings = this.parentElement.children;
+                    for (let i = 0; i < siblings.length; i++) {
+                        siblings[i].classList.remove('selected');
+                    }
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

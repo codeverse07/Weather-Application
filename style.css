@@ -1,0 +1,85 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('ww.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+    background-color: rgba(163, 173, 171, 0.8); 
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+
+.input-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+input {
+    padding: 15px;
+    font-size: 1.2rem;
+    width: 250px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-right: 15px;
+    background-color: #f8f8f8;
+}
+
+
+button {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+#weather-info {
+    margin-top: 20px;
+}
+
+
+#weather-info p {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    color:black;
+}
+
+
+#error-message {
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
